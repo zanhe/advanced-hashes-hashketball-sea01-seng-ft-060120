@@ -1,3 +1,5 @@
+require 'pry'
+
 # Write your code below game_hash
 def game_hash
   {
@@ -126,4 +128,61 @@ def game_hash
   }
 end
 
-# Write code here
+def get_all_players
+  all_players = []
+  all_players << game_hash[:home][:players]
+  all_players << game_hash[:away][:players]
+  
+  all_players = all_players.flatten
+end 
+
+def get_player_by_name(player_name)
+  my_player = get_all_players.find do |player|
+    player[:player_name] == player_name
+  end
+end
+
+def num_points_scored(player_name)
+  get_player_by_name(player_name)[:points]
+end
+
+def shoe_size(player_name)
+  get_player_by_name(player_name)[:shoe]
+end
+
+def which_team(team_name)
+  if game_hash[:home][:team_name] == team_name
+    team = game_hash[:home]
+  end
+  if game_hash[:away][:team_name] == team_name
+    team = game_hash[:away]
+  end
+  team
+end 
+
+def team_colors(team_name)
+  which_team(team_name)[:colors]
+end
+
+def team_names
+  teams = []
+  teams << game_hash[:home][:team_name]
+  teams << game_hash[:away][:team_name]
+  
+  teams = teams.flatten
+end
+
+def player_numbers(team_name)
+  team = which_team(team_name)
+  team[:players].collect do |jersey|
+    jersey[:number]
+  end  
+end
+
+def player_stats(player_name)
+  get_player_by_name(player_name)
+end
+
+def big_shoe_rebounds
+  
+end
